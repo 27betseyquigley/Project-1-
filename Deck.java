@@ -236,6 +236,7 @@ public class Deck {
         for( int i=0; i<b-1; i++){
             for( int j=0; j<b-i; j++){
                 if(cards [j] > cards [j+1]){
+                Collections.swap(cards,[j],[b]);
 
                 }
 
