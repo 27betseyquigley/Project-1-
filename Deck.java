@@ -236,6 +236,9 @@ public class Deck {
 
     public void bubbleSort() {
         int b = cards.length;
+        for( int i=0; i<b-1; i++){
+
+        }
 
 
     }//end bubbleSort
