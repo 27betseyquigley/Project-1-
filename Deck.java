@@ -123,23 +123,39 @@ public class Deck {
 
 
 
-    public static Deck merge(Deck d1, Deck d2) {
-        // create a new deck big enough for all the cards
-        Deck d3= new Deck(d1.length+d2.length);
+    static Deck merge(Deck d1, Deck d2) {
+        //d1 and d2 are inputs
+        // create a new deck, d3, big enough for all the cards
+        Deck d3 = new Deck(d1.length + d2.length);
 
         // use the index i to keep track of where we are at in
         // the first deck, and the index j for the second deck
-        int i = 0;
-        int j = 0;
+        int i = 0; //first step
+        int j = 0; // second step
+
         // the index k traverses the result deck
-        for (int k = 0; k <d3.cards.length; k++) {
+        for (int k = 0; k < d3.length; k++) {
+            // if d1 is empty, use top card from d2
+            if (i >= d1.cards.length ) {
+                d3.cards[k] = d2.cards[j++];
+            // if d2 is empty, use top card from d1
+            } else if (j >= d2.cards.length ) {
+                d3.cards[k] = d1.cards[i++];
+            // otherwise, compare the top two cards
+            } else  {
+                int result = d2.cards[j].compareTo(d1.cards[i]);
+                // add lowest card to the new deck at k
+                // and increment i or j (depending on card)
 
-            // if d1 is empty, d2 wins
-            // if d2 is empty, d1 wins
-            // otherwise, compare the two cards
-
-            // add the winner to the new deck at position k
-            // increment either i or j
+                if (result == -1){
+                    d3.cards[k] = d2.cards[j];
+                    j++;
+                }
+                else {
+                    d3.cards[k] = d1.cards[i];
+                    i++;
+                }
+            }
         }
         // return the new deck
         return d3;
@@ -166,21 +182,44 @@ public class Deck {
     /**
      * Returns a sorted copy of the deck using selection sort.
      */
-    public Deck almostMergeSort() {
-        return this;
+    public static Deck almostMergeSort(Deck deck) {
+        // divide the deck into two subdecks
+        Deck subdeck1 = deck.subdeck(0 , deck.cards.length/2-1);
+        Deck subdeck2 = deck.subdeck(deck.cards.length/2 , deck.cards.length-1);
+        // sort the subdecks using selectionSort
+        subdeck1.selectionSort();
+        subdeck2.selectionSort();
+        // merge the subdecks, return the result
+
+        return Deck.merge(subdeck1, subdeck2);
     }
 
     /**
      * Returns a sorted copy of the deck using merge sort.
      */
-    public Deck mergeSort() {
-        return this;
-    }
+    public Deck mergeSort(Deck deck) {
+       // if the deck has 0 or 1 cards, return it
+        if(deck.cards.length <= 1){
+            return deck;
+        }
+        // otherwise, divide the deck into two subdecks
+        Deck subdeck1 = deck.subdeck(0 , deck.cards.length/2-1);
+        Deck subdeck2 = deck.subdeck(deck.cards.length/2 , deck.cards.length-1);
+        // sort the subdecks using   mergeSort
+        subdeck1 = mergeSort(subdeck1);
+        subdeck2 = mergeSort(subdeck2);
+        // merge the subdecks
+        // return the result
+        return merge(subdeck1, subdeck2);
 
+
+
+    }
     /**
      * Reorders the cards (in place) using insertion sort.
      */
     public void insertionSort() {
+        
     }
 
     /**
