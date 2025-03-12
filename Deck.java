@@ -219,7 +219,9 @@ public class Deck {
      * Reorders the cards (in place) using insertion sort.
      */
     public void insertionSort() {
-        
+        for (int i = 1; i < cards.length; i++) {
+
+        }
     }
 
     /**
