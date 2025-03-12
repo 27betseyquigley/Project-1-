@@ -220,6 +220,20 @@ public class Deck {
      */
     public void insertionSort() {
         for (int i = 1; i < cards.length; i++) {
+            // Store the current card in a temporary variable
+        Card currentCard = cards[i];
+        
+        // Move elements of cards[0..i-1], that are greater than currentCard, 
+        // to one position ahead of their current position
+        int j = i - 1;
+        while (j >= 0 && cards[j].compareTo(currentCard) > 0) {
+            cards[j + 1] = cards[j];
+            j--;
+        }
+        
+        // Place the currentCard at its correct position
+        cards[j + 1] = currentCard;
+    }
         }
     }
 
