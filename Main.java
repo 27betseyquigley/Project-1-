@@ -44,6 +44,18 @@ public class Main {
         System.out.println("Merged Deck");
         deck.mergeSort(deck);
 
+        deck.shuffle();
+        System.out.println("Insertion Sort");
+        Deck selectionSort = deck.selectionSort(deck);
+        selectionSort.print();
+
+         deck.shuffle();
+        System.out.println("Bubble Sort");
+        Deck bubbleSort = deck.bubbeSort(deck);
+        bubbeSort.print();
+
+        
+
     }
     public static int [] suitHist(Card[] cards){
         int[]numSuits= new int[4];
