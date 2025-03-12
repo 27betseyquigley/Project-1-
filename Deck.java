@@ -251,6 +251,7 @@ public class Deck {
     }
 
     public void bubbleSort(){
+        int b = cards.length;
 
 
 
