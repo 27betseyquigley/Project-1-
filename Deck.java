@@ -220,7 +220,6 @@ public class Deck {
      */
     public void insertionSort() {
         for (int i = 1; i < cards.length; i++) {
-
         }
     }
 
@@ -232,6 +231,7 @@ public class Deck {
 
 
     }//end bubbleSort
+
     private void insert(Card card, int i) {
     }
     public void selectSort() {
