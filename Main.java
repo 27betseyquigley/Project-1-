@@ -51,8 +51,8 @@ public class Main {
 
          deck.shuffle();
         System.out.println("Bubble Sort");
-        Deck bubbleSort = deck.bubbeSort(deck);
-        bubbeSort.print();
+        Deck bubbleSort = deck.bubbleSort(deck);
+        bubbleSort.print();
 
         
 
