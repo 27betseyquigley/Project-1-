@@ -233,20 +233,17 @@ public class Deck {
 
     public void bubbleSort() {
         int b = cards.length;
-        for( int i=0; i<b-1; i++){
-            for( int j=0; j<b-i; j++){
-                if(cards [j] > cards [j+1]){
-                    // goes through the deck and if the first one is greater than the second one it swaps them
-                Collections.swap(cards,j,b);
-
+        for (int i = 0; i < b - 1; i++) {
+            for (int j = 0; j < b - i - 1; j++) {  // Compare until the unsorted part
+                if (cards[j].compareTo(cards[j + 1]) > 0) {
+                    // Swap cards[j] and cards[j + 1]
+                    Card temp = cards[j];
+                    cards[j] = cards[j + 1];
+                    cards[j + 1] = temp;
                 }
-
             }
-
         }
-
-
-    }//end bubbleSort
+    }
 
     public void selectSort() {
 
