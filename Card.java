@@ -80,6 +80,6 @@ public class Card {
         return RANKS[this.rank] + " of " + SUITS[this.suit];
     }
 
-
+}
 
 

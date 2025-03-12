@@ -51,9 +51,9 @@ public class Deck {
      * Returns a string representation of the deck.
      */
     public String toString() {
-        String result="";
-        for(Card card: this.cards){
-            result+= card.toString() + "";
+        String result = "";
+        for (Card card : this.cards) {
+            result += card.toString() + "";
         }
         return result;
         //return "TODO";
@@ -66,9 +66,9 @@ public class Deck {
         for (int i = 0; i < this.cards.length; i++) {
 
             // choose a random number between i and length - 1
-           int rand= randomInt(i,cards.length);
+            int rand = randomInt(i, cards.length);
             // swap the ith card and the randomly-chosen card
-            swapCards(i,rand);
+            swapCards(i, rand);
         }
 
     }
@@ -77,7 +77,7 @@ public class Deck {
      * Chooses a random number between low and high, including both.
      */
     private static int randomInt(int low, int high) {
-       return random.nextInt(high-low) + low;
+        return random.nextInt(high - low) + low;
 
     }
 
@@ -95,11 +95,11 @@ public class Deck {
      * Sorts the cards (in place) using selection sort.
      */
     public void selectionSort() {
-        for(int index=0; index<cards.length; index++){
-            int lowest= indexLowest(index, cards.length-1);
+        for (int index = 0; index < cards.length; index++) {
+            int lowest = indexLowest(index, cards.length - 1);
             //swap the ith card and the lowest card found
-            if(lowest !=lowest){
-                swapCards(lowest, index-1);
+            if (lowest != lowest) {
+                swapCards(lowest, index - 1);
             }
         }
     }
@@ -110,9 +110,9 @@ public class Deck {
      */
     private int indexLowest(int low, int high) {
         int min = low;
-        for(int i=low;i<=high;i++){
-            if(this.cards[i].compareTo(this.cards[min])<0){
-                min=i;
+        for (int i = low; i <= high; i++) {
+            if (this.cards[i].compareTo(this.cards[min]) < 0) {
+                min = i;
 
 
             }
@@ -120,7 +120,6 @@ public class Deck {
         }
         return min;
     }
-
 
 
     static Deck merge(Deck d1, Deck d2) {
@@ -136,22 +135,21 @@ public class Deck {
         // the index k traverses the result deck
         for (int k = 0; k < d3.length; k++) {
             // if d1 is empty, use top card from d2
-            if (i >= d1.cards.length ) {
+            if (i >= d1.cards.length) {
                 d3.cards[k] = d2.cards[j++];
-            // if d2 is empty, use top card from d1
-            } else if (j >= d2.cards.length ) {
+                // if d2 is empty, use top card from d1
+            } else if (j >= d2.cards.length) {
                 d3.cards[k] = d1.cards[i++];
-            // otherwise, compare the top two cards
-            } else  {
+                // otherwise, compare the top two cards
+            } else {
                 int result = d2.cards[j].compareTo(d1.cards[i]);
                 // add lowest card to the new deck at k
                 // and increment i or j (depending on card)
 
-                if (result == -1){
+                if (result == -1) {
                     d3.cards[k] = d2.cards[j];
                     j++;
-                }
-                else {
+                } else {
                     d3.cards[k] = d1.cards[i];
                     i++;
                 }
@@ -160,8 +158,6 @@ public class Deck {
         // return the new deck
         return d3;
     }
-
-
 
 
     /**
@@ -184,8 +180,8 @@ public class Deck {
      */
     public static Deck almostMergeSort(Deck deck) {
         // divide the deck into two subdecks
-        Deck subdeck1 = deck.subdeck(0 , deck.cards.length/2-1);
-        Deck subdeck2 = deck.subdeck(deck.cards.length/2 , deck.cards.length-1);
+        Deck subdeck1 = deck.subdeck(0, deck.cards.length / 2 - 1);
+        Deck subdeck2 = deck.subdeck(deck.cards.length / 2, deck.cards.length - 1);
         // sort the subdecks using selectionSort
         subdeck1.selectionSort();
         subdeck2.selectionSort();
@@ -198,13 +194,13 @@ public class Deck {
      * Returns a sorted copy of the deck using merge sort.
      */
     public Deck mergeSort(Deck deck) {
-       // if the deck has 0 or 1 cards, return it
-        if(deck.cards.length <= 1){
+        // if the deck has 0 or 1 cards, return it
+        if (deck.cards.length <= 1) {
             return deck;
         }
         // otherwise, divide the deck into two subdecks
-        Deck subdeck1 = deck.subdeck(0 , deck.cards.length/2-1);
-        Deck subdeck2 = deck.subdeck(deck.cards.length/2 , deck.cards.length-1);
+        Deck subdeck1 = deck.subdeck(0, deck.cards.length / 2 - 1);
+        Deck subdeck2 = deck.subdeck(deck.cards.length / 2, deck.cards.length - 1);
         // sort the subdecks using   mergeSort
         subdeck1 = mergeSort(subdeck1);
         subdeck2 = mergeSort(subdeck2);
@@ -213,27 +209,15 @@ public class Deck {
         return merge(subdeck1, subdeck2);
 
 
-
     }
+
     /**
      * Reorders the cards (in place) using insertion sort.
      */
     public void insertionSort() {
         for (int i = 1; i < cards.length; i++) {
-            // Store the current card in a temporary variable
-        Card currentCard = cards[i];
-        
-        // Move elements of cards[0..i-1], that are greater than currentCard, 
-        // to one position ahead of their current position
-        int j = i - 1;
-        while (j >= 0 && cards[j].compareTo(currentCard) > 0) {
-            cards[j + 1] = cards[j];
-            j--;
-        }
-        
-        // Place the currentCard at its correct position
-        cards[j + 1] = currentCard;
-    }
+            Card card = cards[i];
+            insert(card, i);
         }
     }
 
@@ -250,9 +234,8 @@ public class Deck {
         cards[j] = card;
     }
 
-    public void bubbleSort(){
+    public void bubbleSort() {
         int b = cards.length;
-
 
 
     }//end bubbleSort
@@ -260,11 +243,9 @@ public class Deck {
     public void selectSort() {
 
 
-        }
+    }
 
 
-
-
-}// end deck class
+}
 
 
