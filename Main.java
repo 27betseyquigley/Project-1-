@@ -23,19 +23,23 @@ public class Main {
         deck.shuffle();
         deck.selectionSort();
         deck.print();
+        
         Deck sub = deck.subdeck(0,3);
         sub.shuffle();
         System.out.println("Subdeck");
         sub.print();
         Deck sub2 = deck.subdeck(0,3);
         sub2.shuffle();
+        
         Deck mergedDeck = Deck.merge(sub, sub2);
         System.out.println("Merged Deck");
         mergedDeck.print();
+        
         System.out.println("Almost merged deck");
         deck.shuffle();
         Deck almostMergeSort = Deck.almostMergeSort(deck);
         almostMergeSort.print();
+        
         deck.shuffle();
         System.out.println("Merged Deck");
         deck.mergeSort(deck);
