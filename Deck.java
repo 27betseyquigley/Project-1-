@@ -211,19 +211,16 @@ public class Deck {
 
     }
 
-    /**
-     * Reorders the cards (in place) using insertion sort.
-     */
+    //reorder the cards in place using insertionSort
     public void insertionSort() {
+        //for loop to run through the length of the cards 
         for (int i = 1; i < cards.length; i++) {
             Card card = cards[i];
             insert(card, i);
         }
     }
 
-    /**
-     * Helper method for insertion sort.
-     */
+  //helper method for insertionSort
     private void insert(Card card, int i) {
         int j = i;
         // Move elements that are greater than card to one position ahead
