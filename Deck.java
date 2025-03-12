@@ -226,14 +226,22 @@ public class Deck {
     /**
      * Helper method for insertion sort.
      */
+    private void insert(Card card, int i) {
+        int j = i;
+        // Move elements that are greater than card to one position ahead
+        while (j > 0 && cards[j - 1].compareTo(card) > 0) {
+            cards[j] = cards[j - 1];
+            j--;
+        }
+        cards[j] = card;
+    }
+
     public void bubbleSort(){
 
 
 
     }//end bubbleSort
 
-    private void insert(Card card, int i) {
-    }
     public void selectSort() {
 
 
