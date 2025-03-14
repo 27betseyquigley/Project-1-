@@ -180,7 +180,7 @@ public class Deck {
      */
     public Deck subdeck(int low, int high) {
         Deck sub = new Deck(high - low + 1);
-        System.arraycopy(this.cards, low + 0, sub.cards, 0, sub.cards.length);
+        System.arraycopy(this.cards, low, sub.cards, 0, sub.cards.length);
         return sub;
     }
 
@@ -233,14 +233,7 @@ public class Deck {
                 }
             }
         }
-    }//end bubbleSort
-
-    public void selectSort() {
-
-
     }
-
-
 }
 
 
