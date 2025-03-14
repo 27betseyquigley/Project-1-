@@ -1,12 +1,11 @@
-import java.util.Collections;
 import java.util.Random;
 
 public class Deck {
     // This is a class variable so we don't have to create
     // a new Random object every time we call randomInt.
-    private static Random random = new Random();
+    private static final Random random = new Random();
 
-    private Card[] cards;
+    private final Card[] cards;
     private int length;
 
 
@@ -32,6 +31,66 @@ public class Deck {
     }
 
     /**
+     * Chooses a random number between low and high, including both.
+     */
+    private static int randomInt(int low, int high) {
+        return random.nextInt(high - low) + low;
+
+    }
+
+    static Deck merge(Deck d1, Deck d2) {
+        //d1 and d2 are inputs
+        // create a new deck, d3, big enough for all the cards
+        Deck d3 = new Deck(d1.length + d2.length);
+
+        // use the index i to keep track of where we are at in
+        // the first deck, and the index j for the second deck
+        int i = 0; //first step
+        int j = 0; // second step
+
+        // the index k traverses the result deck
+        for (int k = 0; k < d3.length; k++) {
+            // if d1 is empty, use top card from d2
+            if (i >= d1.cards.length) {
+                d3.cards[k] = d2.cards[j++];
+                // if d2 is empty, use top card from d1
+            } else if (j >= d2.cards.length) {
+                d3.cards[k] = d1.cards[i++];
+                // otherwise, compare the top two cards
+            } else {
+                int result = d2.cards[j].compareTo(d1.cards[i]);
+                // add lowest card to the new deck at k
+                // and increment i or j (depending on card)
+
+                if (result == -1) {
+                    d3.cards[k] = d2.cards[j];
+                    j++;
+                } else {
+                    d3.cards[k] = d1.cards[i];
+                    i++;
+                }
+            }
+        }
+        // return the new deck
+        return d3;
+    }
+
+    /**
+     * Returns a sorted copy of the deck using selection sort.
+     */
+    public static Deck almostMergeSort(Deck deck) {
+        // divide the deck into two subdecks
+        Deck subdeck1 = deck.subdeck(0, deck.cards.length / 2 - 1);
+        Deck subdeck2 = deck.subdeck(deck.cards.length / 2, deck.cards.length - 1);
+        // sort the subdecks using selectionSort
+        subdeck1.selectionSort();
+        subdeck2.selectionSort();
+        // merge the subdecks, return the result
+
+        return Deck.merge(subdeck1, subdeck2);
+    }
+
+    /**
      * Gets the internal cards array.
      */
     public Card[] getCards() {
@@ -53,7 +112,7 @@ public class Deck {
     public String toString() {
         String result = "";
         for (Card card : this.cards) {
-            result += card.toString() + "";
+            result += card.toString();
         }
         return result;
         //return "TODO";
@@ -72,15 +131,6 @@ public class Deck {
         }
 
     }
-
-    /**
-     * Chooses a random number between low and high, including both.
-     */
-    private static int randomInt(int low, int high) {
-        return random.nextInt(high - low) + low;
-
-    }
-
 
     /**
      * Swaps the cards at indexes i and j.
@@ -121,73 +171,17 @@ public class Deck {
         return min;
     }
 
-
-    static Deck merge(Deck d1, Deck d2) {
-        //d1 and d2 are inputs
-        // create a new deck, d3, big enough for all the cards
-        Deck d3 = new Deck(d1.length + d2.length);
-
-        // use the index i to keep track of where we are at in
-        // the first deck, and the index j for the second deck
-        int i = 0; //first step
-        int j = 0; // second step
-
-        // the index k traverses the result deck
-        for (int k = 0; k < d3.length; k++) {
-            // if d1 is empty, use top card from d2
-            if (i >= d1.cards.length) {
-                d3.cards[k] = d2.cards[j++];
-                // if d2 is empty, use top card from d1
-            } else if (j >= d2.cards.length) {
-                d3.cards[k] = d1.cards[i++];
-                // otherwise, compare the top two cards
-            } else {
-                int result = d2.cards[j].compareTo(d1.cards[i]);
-                // add lowest card to the new deck at k
-                // and increment i or j (depending on card)
-
-                if (result == -1) {
-                    d3.cards[k] = d2.cards[j];
-                    j++;
-                } else {
-                    d3.cards[k] = d1.cards[i];
-                    i++;
-                }
-            }
-        }
-        // return the new deck
-        return d3;
-    }
-
+    /**
+     * Combines two previously sorted subdecks.
+     */
 
     /**
      * Returns a subset of the cards in the deck.
      */
     public Deck subdeck(int low, int high) {
         Deck sub = new Deck(high - low + 1);
-        for (int i = 0; i < sub.cards.length; i++) {
-            sub.cards[i] = this.cards[low + i];
-        }
+        System.arraycopy(this.cards, low + 0, sub.cards, 0, sub.cards.length);
         return sub;
-    }
-
-    /**
-     * Combines two previously sorted subdecks.
-     */
-
-    /**
-     * Returns a sorted copy of the deck using selection sort.
-     */
-    public static Deck almostMergeSort(Deck deck) {
-        // divide the deck into two subdecks
-        Deck subdeck1 = deck.subdeck(0, deck.cards.length / 2 - 1);
-        Deck subdeck2 = deck.subdeck(deck.cards.length / 2, deck.cards.length - 1);
-        // sort the subdecks using selectionSort
-        subdeck1.selectionSort();
-        subdeck2.selectionSort();
-        // merge the subdecks, return the result
-
-        return Deck.merge(subdeck1, subdeck2);
     }
 
     /**
@@ -220,7 +214,7 @@ public class Deck {
         }
     }
 
-  //helper method for insertionSort
+    //helper method for insertionSort
     private void insert(Card card, int i) {
         int j = i;
         // Move elements that are greater than card to one position ahead
@@ -232,20 +226,13 @@ public class Deck {
     }
 
     public void bubbleSort() {
-        int b = cards.length;
-        for( int i=0; i<b-1; i++){
-            for( int j=0; j<b-i; j++){
-                if(cards [j] > cards [j+1]){
-                    // goes through the deck and if the first one is greater than the second one it swaps them
-                Collections.swap(cards,j,b);
-
+        for (int i = 0; i < cards.length - 1; i++) {
+            for (int j = 0; j < cards.length - i - 1; j++) {
+                if (cards[j].compareTo(cards[j + 1]) > 0) {
+                    swapCards(j, j + 1);
                 }
-
             }
-
         }
-
-
     }//end bubbleSort
 
     public void selectSort() {

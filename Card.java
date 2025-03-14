@@ -19,6 +19,14 @@ public class Card {
         this.suit = suit;
     }
 
+    public static Card[] makeDeck() {
+        Card[] cards = new Card[52];
+        for (int i = 0; i < 52; i++) {
+            cards[i] = new Card(i, i + 1);
+        }
+        return cards;
+    }
+
     /**
      * Returns a negative integer if this card comes before
      * the given card, zero if the two cards are equal, or
@@ -79,7 +87,6 @@ public class Card {
     public String toString() {
         return RANKS[this.rank] + " of " + SUITS[this.suit];
     }
-
 }
 
 
